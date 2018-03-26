@@ -107,7 +107,7 @@
 
         var baseTask = "exec:ci-" + action.toLowerCase() + "-demo:" + platform.toLowerCase();
         grunt.task.run(
-            baseTask + ":",
+            baseTask + ":"
         );
     });
 
