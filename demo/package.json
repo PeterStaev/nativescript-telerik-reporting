@@ -1,0 +1,31 @@
+{
+	"description": "NativeScript Application",
+	"license": "SEE LICENSE IN <your-license-filename>",
+	"readme": "NativeScript Application",
+	"repository": "<fill-your-repository-here>",
+	"nativescript": {
+		"id": "com.tangrainc.reportingdemo",
+		"tns-ios": {
+			"version": "3.4.1"
+		}
+	},
+  	"dependencies": {
+		"nativescript-telerik-reporting": "file:../bin/dist",
+		"nativescript-theme-core": "~1.0.4",
+		"nativescript-unit-test-runner": "^0.3.4",
+		"tns-core-modules": "~3.4.0"
+	},
+	"devDependencies": {
+		"@types/chai": "^4.1.2",
+		"@types/mocha": "^5.0.0",
+		"chai": "^4.1.2",
+		"karma": "^2.0.0",
+		"karma-chai": "^0.1.0",
+		"karma-mocha": "^1.3.0",
+		"karma-mocha-reporter": "^2.2.5",
+		"karma-nativescript-launcher": "^0.4.0",
+		"mocha": "^5.0.5",
+		"nativescript-dev-typescript": "~0.6.0",
+		"typescript": "~2.4.2"
+	}
+}

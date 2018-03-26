@@ -1,0 +1,11 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
+    <Page.actionBar>
+        <ActionBar title="Telerik Reporting" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+    <StackLayout class="p-20">
+        <ListPicker items="{{ items }}" selectedIndex="{{ selectedIndex }}" />
+        <Button text="Open Document" tap="openDocument" class="btn btn-primary btn-active"/>
+        <ActivityIndicator busy="{{ isBusyIn }}" />
+    </StackLayout>
+</Page>

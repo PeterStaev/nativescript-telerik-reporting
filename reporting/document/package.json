@@ -1,0 +1,5 @@
+{ 
+    "types": "document.d.ts",
+    "name" : "document",
+    "main" : "document"
+  }

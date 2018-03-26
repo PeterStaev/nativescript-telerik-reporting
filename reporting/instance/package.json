@@ -1,0 +1,5 @@
+{ 
+    "types": "instance.d.ts",
+    "name" : "instance",
+    "main" : "instance"
+  }
