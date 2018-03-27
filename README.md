@@ -21,12 +21,37 @@ There is no additional configuration needed!
 
 ### `ReportingClient`
 #### Methods
+* **constructor(ReportingClientOptions)**  
+Creates a reporting client instance with the given `serverUrl`. Note this should be the root of your site where you host the REST service and should **not** include `/api/reports` in it.   
+Also you can send `additionalHeaders` which will be sent with every request. Useful for sending authentication in case your reporting service requires authentication. 
+* **getAvailableDocumentFormats(): Promise<DocumentFormat[]>**  
+Gets an array of supported document export formats by the server. This method can be called without registering the client. ([API Reference](https://docs.telerik.com/reporting/telerik-reporting-rest-general-api-get-document-formats))
+* **register(): Promise<void>**  
+Registers the client with the server. ([API Reference](https://docs.telerik.com/reporting/telerik-reporting-rest-api-register-client))
+* **unregister(): Promise<void>**  
+Unregisters the client from the servers. You need to call this once you finished using the reporting client so it can free up resources on the server. ([API Reference](https://docs.telerik.com/reporting/telerik-reporting-rest-api-unregister-client))
+* **getReportParameters(ReportSource): Promise<ReportParameter[]>**  
+Gets info about the parameters for the given reports. Also can be used to check the validity of the given parameters for the given report. ([API Reference](https://docs.telerik.com/reporting/telerik-reporting-rest-report-parameters-api-get-report-parameters))
+* **createInstance(ReportSource): Promise<ReportingInstance>**  
+Creates a `ReportingInstance` that can be used to render and download reports from the server. ([API Reference](https://docs.telerik.com/reporting/telerik-reporting-rest-report-instances-api-create-report-instance))
 
 ### `ReportingInstance`
 #### Methods
+* **createDocument(DocumentFormatKey): Promise<ReportingDocument>**  
+Creates a `ReportingDocument` with the given export format. ([API Reference](https://docs.telerik.com/reporting/telerik-reporting-rest-documents-api-request-document))
+* **destroy(): Promise<void>**  
+Destroys the reporting instance from the server. It is important to call this method once you finish your work so it can free the resources on the server. ([API Reference](https://docs.telerik.com/reporting/telerik-reporting-rest-report-instances-api-destroy-report-instance))
 
 ### `ReportingDocument`
 #### Methods
+* **getInfo(): Promise<DocumentInfo>**  
+Gets info about the rendered report document, for example if it is ready on the server, how many pages it has, etc.([API Reference](https://docs.telerik.com/reporting/telerik-reporting-rest-documents-api-get-document-info)
+* **download(File?): Promise<File>**  
+Downloads the prepared document from the server. By default it names the file with `documentId` adds an appropriate extension and saves the file in the device specific temp folder. In case you need to save the file somewhere else, or need to name it differently you can send a `File` instance to this method. 
+* **getPage(number): Promise<PageInfo>**  
+Gets information about the given page. ([API Reference](https://docs.telerik.com/reporting/telerik-reporting-rest-documents-api-get-document-info))
+* **destroy(): Promise<void>**  
+Destroys the reporting document from the server. It is important to call this method once you finish your work so it can free the resources on the server. ([API Reference](https://docs.telerik.com/reporting/telerik-reporting-rest-documents-api-destroy-document))
 
 ## Usage
 A typical usage scenario is when you want to generate a report on your server and the download the file in an appropriate format (for example a PDF document). Below is an example how you can make this. You start by creating a client with your server's URL. Then you register your client, create an instance and a document. Finally you download the document to the mobile device. 

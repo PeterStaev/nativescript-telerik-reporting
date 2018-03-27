@@ -1,6 +1,6 @@
 {
   "name": "nativescript-telerik-reporting",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A helper library for accessing Telerik Reporting REST API",
   "main": "telerik-reporting",
   "typings": "telerik-reporting.d.ts",
