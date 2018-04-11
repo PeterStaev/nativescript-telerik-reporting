@@ -13,6 +13,7 @@
     }
   },
   "dependencies": {
+    "nativescript-permissions": "^1.2.3",
     "nativescript-telerik-reporting": "file:../bin/dist",
     "nativescript-theme-core": "~1.0.4",
     "nativescript-unit-test-runner": "^0.3.4",
@@ -41,6 +42,7 @@
     "nativescript-worker-loader": "~0.8.1",
     "raw-loader": "~0.5.1",
     "resolve-url-loader": "~2.2.1",
+    "tns-platform-declarations": "^3.4.1",
     "typescript": "~2.4.2",
     "uglifyjs-webpack-plugin": "~1.1.6",
     "webpack": "~3.10.0",

@@ -1,8 +1,14 @@
 
+import * as application from "application";
 import { EventData, fromObject } from "data/observable";
-import { DocumentFormat, ReportSource, ReportingClient } from "nativescript-telerik-reporting";
+import * as fs from "file-system";
+import { FileSystemAccess } from "file-system/file-system-access";
+import { isAndroid, isIOS } from "platform";
 import { Page } from "ui/page";
 import * as utils from "utils/utils";
+
+import * as permissions from "nativescript-permissions";
+import { DocumentFormat, ReportSource, ReportingClient } from "nativescript-telerik-reporting";
 
 const serverUrl = "https://demos.telerik.com/reporting/";
 
@@ -43,14 +49,44 @@ export function openDocument() {
         .then(() => reportingClient.createInstance(req))
         .then((instance) => {
             instance.createDocument({ format: documentFormat } as any).then((document) => {
-                document.download().then((file) => {
-                    utils.ios.openFile(file.path);
-                    viewModel.set("isBusyIn", false);
+                const path =
+                    isIOS
+                        ? fs.knownFolders.temp().path
+                        : fs.path.join(android.os.Environment.getExternalStorageDirectory().toString(), application.android.foregroundActivity.getPackageName());
+                        
+                let permissionPromise = new Promise((resolve, reject) => resolve());
+                if (isAndroid) {
+                    permissionPromise = permissions.requestPermission((android as any).Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                }
 
-                    document.destroy()
-                        .then(() => instance.destroy())
-                        .then(() => reportingClient.unregister, console.error);
-                }, console.error);
+                permissionPromise
+                    .then(() => {
+                        const tempFile = fs.File.fromPath(fs.path.join(path, `${document.documentId}.${document.documentFormat.toLowerCase()}`))
+                        return document.download(tempFile);
+                    })
+                    .then((file) => {
+                        openFile(file.path);
+                        viewModel.set("isBusyIn", false);
+
+                        document.destroy()
+                            .then(() => instance.destroy())
+                            .then(() => reportingClient.unregister, console.error);
+                    }, console.error);
             }, console.error);
         }, console.error);
+}
+
+function openFile(path: string) {
+    if (isIOS) {
+        utils.ios.openFile(path);
+        return;
+    }
+
+    const fsa = new FileSystemAccess();
+    const mimeTypeMap = android.webkit.MimeTypeMap.getSingleton();
+    const mimeType = mimeTypeMap.getMimeTypeFromExtension(fsa.getFileExtension(path).replace(".", "").toLowerCase());
+    const intent = new android.content.Intent(android.content.Intent.ACTION_VIEW);
+    intent.setDataAndType(android.net.Uri.fromFile(new java.io.File(path)), mimeType);
+
+    application.android.currentContext.startActivity(android.content.Intent.createChooser(intent, "Open File..."));
 }
