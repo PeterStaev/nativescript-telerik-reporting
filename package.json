@@ -1,6 +1,6 @@
 {
   "name": "nativescript-telerik-reporting",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A helper library for accessing Telerik Reporting REST API",
   "main": "telerik-reporting",
   "typings": "telerik-reporting.d.ts",
@@ -36,7 +36,7 @@
   "author": "Peter Staev <peter@tangrasoft.com>",
   "license": "Apache-2.0",
   "peerDependencies": {
-    "tns-core-modules": "^3.1.0 || >3.3.0-"
+    "tns-core-modules": ">=3"
   },
   "devDependencies": {
     "grunt": "1.0.1",

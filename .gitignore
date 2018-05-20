@@ -58,3 +58,4 @@ demo/lib
 !webpack.*.js
 !karma.conf.js
 report
+.tmp_backup
