@@ -33,7 +33,7 @@ matrix:
     - stage: lint
       language: node_js
       os: linux
-      node_js: "6"
+      node_js: "8"
       script: grunt lint
 
     - stage: build
@@ -42,7 +42,7 @@ matrix:
       env: 
         - Android="26"
       jdk: oraclejdk8
-      before_install: nvm install 6.10.3
+      before_install: nvm install 8.11.3
       script: "grunt ci:build:android"
 
     - stage: build
@@ -52,7 +52,7 @@ matrix:
         - Xcode="8.3"
       osx_image: xcode8.3
       language: node_js 
-      node_js: "6"
+      node_js: "8"
       jdk: oraclejdk8
       before_install: "pod repo update"
       script: "grunt ci:build:ios"
@@ -64,7 +64,7 @@ matrix:
         - Android="26"
         - Platform="Android"
       jdk: oraclejdk8
-      before_install: nvm install 6.10.3
+      before_install: nvm install 8.11.3
       script: "grunt ci:webpack:android"
     
     - stage: webpack
@@ -75,7 +75,7 @@ matrix:
         - Platform="iOS"
       osx_image: xcode8.3
       language: node_js 
-      node_js: "6"
+      node_js: "8"
       jdk: oraclejdk8
       before_install: "pod repo update"
       script: "grunt ci:webpack:ios"
@@ -86,7 +86,7 @@ matrix:
       env: 
         - Android="26"
       jdk: oraclejdk8
-      before_install: nvm install 6.10.3
+      before_install: nvm install 8.11.3
       before_script:
         - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
         - emulator -avd test -no-audio -no-window &
@@ -110,7 +110,7 @@ matrix:
     - stage: deploy
       if: branch = release
       language: node_js 
-      node_js: "6"
+      node_js: "8"
       before_deploy:
           - cd bin/dist
       deploy:
