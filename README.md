@@ -1,3 +1,4 @@
+**This repo only supports NativeScript pre-6.0. The latest version of the plugin supporting NS 6+ is availble as part of [ProPlugins](https://proplugins.org).**
 # NativeScript Telerik Reporting
 [![Build Status](https://travis-ci.org/PeterStaev/nativescript-telerik-reporting.svg?branch=master)](https://travis-ci.org/PeterStaev/nativescript-telerik-reporting)
 [![npm downloads](https://img.shields.io/npm/dm/nativescript-telerik-reporting.svg)](https://www.npmjs.com/package/nativescript-telerik-reporting)
